@@ -49,7 +49,7 @@ export const AmountInput = () => {
       {!loadingBuyOptions ? (
         <>
           <div className="grow">
-            <div className="flex flex-col justify-center w-full h-full">
+            <div className="flex flex-col justify-center w-full h-full gap-4">
               <div className="text-5xl flex items-center m-auto">
                 <div className="flex items-center justify-center">
                   <input
