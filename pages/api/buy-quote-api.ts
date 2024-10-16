@@ -16,7 +16,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     payment_currency: reqBody.payment_currency,
     payment_method: reqBody.payment_method,
     country: reqBody.country,
-    purchase_network: reqBody.payment_network,
+    purchase_network: reqBody.purchase_network,
     subdivision: reqBody.subdivision,
   };
 
