@@ -54,12 +54,12 @@ export const RegionSelector = () => {
           <Skeleton className="h-10 w-[150px] rounded-lg" />
         </>
       ) : (
-        <>
+        <div className="flex flex-col md:flex-row gap-4 md:gap-2">
           <Autocomplete
             isClearable={false}
             variant="underlined"
             onSelectionChange={handleCountrySelectionChange}
-            className="max-w-[200px]"
+            className="max-w-[200px] mx-auto sm:mx-0"
             label="Select country"
             selectedKey={selectedCountry?.id}
             startContent={
@@ -95,7 +95,7 @@ export const RegionSelector = () => {
               isClearable={false}
               variant="underlined"
               onSelectionChange={handleSubdivisionSelectionChange}
-              className="max-w-[150px]"
+              className="max-w-[150px] mx-auto sm:mx-0"
               label="Select State/Division"
               selectedKey={selectedSubdivision}
             >
@@ -106,7 +106,7 @@ export const RegionSelector = () => {
               ))}
             </Autocomplete>
           )}
-        </>
+        </div>
       )}
     </div>
   );

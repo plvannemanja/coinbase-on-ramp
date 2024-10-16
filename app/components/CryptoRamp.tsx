@@ -86,8 +86,8 @@ export const CryptoRamp = ({ partnerUserId }: ICryptoRampProps) => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-zinc-950">
       <div className="crypto-ramp bg-black p-8 rounded-lg shadow-md w-full h-screen">
-        <div className="flex justify-between mb-6 h-20">
-          <div className="flex gap-6 items-center">
+        <div className="flex justify-between mb-6 min-h-20 flex-col md:flex-row gap-4">
+          <div className="flex gap-6 justify-center">
             <Tabs
               aria-label="Options"
               onSelectionChange={(key) => setMode(key as Mode)}
@@ -96,9 +96,11 @@ export const CryptoRamp = ({ partnerUserId }: ICryptoRampProps) => {
               <Tab key="onramp" title="Buy"></Tab>
               <Tab key="offramp" title="Sell"></Tab>
             </Tabs>
-            <RegionSelector />
+            <div className="hidden sm:block">
+              <RegionSelector />
+            </div>
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 justify-center">
             <WalletConnector />
             {authenticated && (
               <Image
@@ -115,18 +117,21 @@ export const CryptoRamp = ({ partnerUserId }: ICryptoRampProps) => {
         </div>
         <Divider />
 
-        <div className="flex flex-row justify-around h-[750px]  w-[1000px] m-auto">
+        <div className="flex flex-col md:flex-row justify-around min-h-[750px] max-w-screen md:w-[1000px] m-auto gap-4 md:gap-0">
+          <div className="bloock sm:hidden mx-auto mt-4 mb-12">
+            <RegionSelector />
+          </div>
           <div className="flex flex-col gap-4 grow">
             <div>
               <AmountInput />
-              <div className="flex flex-row gap-4 justify-around">
+              <div className="flex flex-col md:flex-row gap-4 items-center justify-around">
                 <ChainTokenSelector />
                 <CurrencySelector />
               </div>
             </div>
           </div>
 
-          <div className="flex justify-center items-center w-[400px]">
+          <div className="flex justify-center items-center w-full md:w-[400px]  my-8 md:my-0">
             <RampTransactionSummary />
           </div>
         </div>

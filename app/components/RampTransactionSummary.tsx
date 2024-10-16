@@ -23,6 +23,7 @@ import {
 } from '../utils/localStorage';
 import { RampTransactionSuccess } from './RampTransactionSuccess';
 import { WalletConnector } from './WalletConnector';
+import InformationCircleIcon from '@heroicons/react/24/outline/InformationCircleIcon';
 
 export const RampTransactionSummary = () => {
   const {
@@ -123,7 +124,6 @@ export const RampTransactionSummary = () => {
   useEffect(() => {
     const fetchBuyQuote = async () => {
       try {
-        setFetchingQuote(true);
         const payload: BuyQuoteRequest = {
           purchase_currency: selectedPurchaseCurrency?.symbol || '',
           payment_amount: Number(rampTransaction?.amount).toFixed(2),
@@ -139,14 +139,11 @@ export const RampTransactionSummary = () => {
         setBuyQuote(response);
       } catch (err) {
         console.error('Buy Quote Fetch Failed', err);
-      } finally {
-        setFetchingQuote(false);
       }
     };
 
     const fetchSellQuote = async () => {
       try {
-        setFetchingQuote(true);
         // TODO: Setup api to return pricing data to calculate
         // amount to be sent to quote api
         // const payload: SellQuoteRequest = {
@@ -158,23 +155,20 @@ export const RampTransactionSummary = () => {
         //   subdivision: String(selectedSubdivision),
         //   sell_network: selectedSellCurrencyNetwork?.name || '',
         // };
-
         // const response = await generateSellQuote(payload);
-
         // setSellQuote(response);
       } catch (err) {
         // console.error('Sell Quote Fetch Failed', err);
         console.error('RECEIVED AN ERORR FOR SELL QUOTE', err as Error);
-      } finally {
-        setFetchingQuote(false);
       }
     };
 
     if (authenticated) {
+      setFetchingQuote(true);
       if (isOnrampActive) {
-        fetchBuyQuote();
+        fetchBuyQuote().then(() => setFetchingQuote(false));
       } else {
-        fetchSellQuote();
+        fetchSellQuote().then(() => setFetchingQuote(false));
       }
 
       const intervalId = setInterval(
@@ -344,7 +338,7 @@ export const RampTransactionSummary = () => {
   };
 
   return loadingBuyOptions || loadingSellOptions || fetchingQuote ? (
-    <div className="w-full p-8 my-auto text-sm">
+    <div className="w-full md:p-8 my-auto text-sm">
       <Card>
         <CardHeader>
           <Skeleton className="w-3/5 h-6 rounded-lg" />
@@ -371,7 +365,7 @@ export const RampTransactionSummary = () => {
       </Card>
     </div>
   ) : (
-    <div className="w-full p-8 my-auto text-sm">
+    <div className="w-full md:p-8 my-auto text-sm">
       {txSuccess ? (
         <div className="m-auto">
           {txSuccessQuoteSummary && (
@@ -379,119 +373,135 @@ export const RampTransactionSummary = () => {
           )}
         </div>
       ) : (
-        <Card className="p-4 min-h-[500px]">
-          <CardHeader className="flex gap-3">
-            <div className="flex flex-col">
-              <p className="text-md">Transaction Summary</p>
-              <p className="text-small text-default-500">
-                {getTransactionSummaryTitle()}
-              </p>
-            </div>
-          </CardHeader>
-          <Divider />
-          <CardBody>
-            <div className="space-y-4">
-              <div className="flex flex-col justify-between mt-4 mb-8 text-center">
-                <p className="m-auto text-cb-blue text-lg">
-                  {getTransactionSummaryLabel()}
+        <div className="">
+          {isOfframpActive && (
+            <Card className="mb-4">
+              <CardBody>
+                <p className="text-red-500 flex gap-2">
+                  <InformationCircleIcon className="w-6 h-6 my-auto" />
+                  <span className="my-auto">Sell preview only</span>
                 </p>
-                <div className="flex mx-auto gap-2 mt-4 text-">
-                  {getExchangePriceHtml()}
-                </div>
+              </CardBody>
+            </Card>
+          )}
+          <Card className="p-4 min-h-[500px]">
+            <CardHeader className="flex gap-3">
+              <div className="flex flex-col">
+                <p className="text-md">Transaction Summary</p>
+                <p className="text-small text-default-500">
+                  {getTransactionSummaryTitle()}
+                </p>
               </div>
-              <div className="border-1 border-white rounded-md p-2">
-                <div className="flex justify-between py-4 px-2">
-                  <span className="flex items-center gap-2">
-                    Amount Received
-                  </span>
-                  <span className="font-bold">{getAmountReceived()}</span>
+            </CardHeader>
+            <Divider />
+            <CardBody>
+              <div className="space-y-4">
+                <div className="flex flex-col justify-between mt-4 mb-8 text-center">
+                  <p className="m-auto text-cb-blue text-lg">
+                    {getTransactionSummaryLabel()}
+                  </p>
+                  <div className="flex mx-auto gap-2 mt-4 text-">
+                    {getExchangePriceHtml()}
+                  </div>
                 </div>
-                <Divider />
-                <div className="flex justify-between py-4 px-2">
-                  <span>Network:</span>
-                  <span className="font-bold capitalize">
-                    {selectedPurchaseCurrencyNetwork?.name}
-                  </span>
-                </div>
-                <Divider />
-                <div className="flex justify-between py-4 px-2">
-                  <span className="flex items-center gap-2">
-                    <CreditCardIcon className="w-4 h-4" />
-                    Pay With:
-                  </span>
-                  <span className="font-bold">
-                    {rampTransaction?.paymentMethod}
-                  </span>
-                </div>
-                <Divider />
-                <div className="flex justify-between py-4 px-2">
-                  <span>To:</span>
-                  {rampTransaction?.wallet && (
-                    <Address
-                      className="bg-cb-blue px-2 py-1 rounded h-[30px]"
-                      address={(rampTransaction?.wallet || '') as `0x${string}`}
-                    />
-                  )}
-                </div>
-              </div>
-
-              <div className="text-left text-xs opacity-50">
-                Sending funds is a permanent action. For your security, be sure
-                you own the wallet address listed
-              </div>
-
-              <div>{getTotalCostLabel()}</div>
-
-              {showExpandedFees && (
-                <>
-                  <div className="flex justify-between">
-                    <span>Network Fee:</span>
-                    <span className="text-slate-500">
-                      {Number(buyQuote?.network_fee?.value) == 0
-                        ? 'Free'
-                        : formatCurrency(
-                            buyQuote?.network_fee?.value || '0',
-                            getCurrencySymbol(buyQuote?.network_fee?.currency)
-                          )}
+                <div className="border-1 border-white rounded-md p-2">
+                  <div className="flex justify-between py-4 px-2">
+                    <span className="flex items-center gap-2">
+                      Amount Received
+                    </span>
+                    <span className="font-bold">{getAmountReceived()}</span>
+                  </div>
+                  <Divider />
+                  <div className="flex justify-between py-4 px-2">
+                    <span>Network:</span>
+                    <span className="font-bold capitalize">
+                      {selectedPurchaseCurrencyNetwork?.name}
                     </span>
                   </div>
-
-                  <div className="flex justify-between">
-                    <span>Coinbase Fee:</span>
-                    <span className="text-slate-500">
-                      {Number(buyQuote?.coinbase_fee?.value) == 0
-                        ? 'Free'
-                        : formatCurrency(
-                            buyQuote?.coinbase_fee?.value || '0',
-                            getCurrencySymbol(buyQuote?.coinbase_fee?.currency)
-                          )}
+                  <Divider />
+                  <div className="flex justify-between py-4 px-2">
+                    <span className="flex items-center gap-2">
+                      <CreditCardIcon className="w-4 h-4" />
+                      Pay With:
+                    </span>
+                    <span className="font-bold">
+                      {rampTransaction?.paymentMethod}
                     </span>
                   </div>
-                </>
+                  <Divider />
+                  <div className="flex justify-between py-4 px-2">
+                    <span>To:</span>
+                    {rampTransaction?.wallet && (
+                      <Address
+                        className="bg-cb-blue px-2 py-1 rounded h-[30px]"
+                        address={
+                          (rampTransaction?.wallet || '') as `0x${string}`
+                        }
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <div className="text-left text-xs opacity-50">
+                  Sending funds is a permanent action. For your security, be
+                  sure you own the wallet address listed
+                </div>
+
+                <div>{getTotalCostLabel()}</div>
+
+                {showExpandedFees && (
+                  <>
+                    <div className="flex justify-between">
+                      <span>Network Fee:</span>
+                      <span className="text-slate-500">
+                        {Number(buyQuote?.network_fee?.value) == 0
+                          ? 'Free'
+                          : formatCurrency(
+                              buyQuote?.network_fee?.value || '0',
+                              getCurrencySymbol(buyQuote?.network_fee?.currency)
+                            )}
+                      </span>
+                    </div>
+
+                    <div className="flex justify-between">
+                      <span>Coinbase Fee:</span>
+                      <span className="text-slate-500">
+                        {Number(buyQuote?.coinbase_fee?.value) == 0
+                          ? 'Free'
+                          : formatCurrency(
+                              buyQuote?.coinbase_fee?.value || '0',
+                              getCurrencySymbol(
+                                buyQuote?.coinbase_fee?.currency
+                              )
+                            )}
+                      </span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </CardBody>
+            <Divider />
+            <CardFooter>
+              {!authenticated ? (
+                <div className="m-auto">
+                  <WalletConnector />
+                </div>
+              ) : (
+                <Button
+                  isDisabled={
+                    !readyToConfirmTransaction ||
+                    isAmountTooLow ||
+                    isOfframpActive
+                  }
+                  onClick={launchConfirmTransactionFlow}
+                  className="w-full bg-cb-blue"
+                >
+                  {isOnrampActive ? 'Buy Now' : 'Sell Now'}{' '}
+                </Button>
               )}
-            </div>
-          </CardBody>
-          <Divider />
-          <CardFooter>
-            {!authenticated ? (
-              <div className="m-auto">
-                <WalletConnector />
-              </div>
-            ) : (
-              <Button
-                isDisabled={
-                  !readyToConfirmTransaction ||
-                  isAmountTooLow ||
-                  isOfframpActive
-                }
-                onClick={launchConfirmTransactionFlow}
-                className="w-full bg-cb-blue"
-              >
-                {isOnrampActive ? 'Buy Now' : 'Sell Now'}{' '}
-              </Button>
-            )}
-          </CardFooter>
-        </Card>
+            </CardFooter>
+          </Card>
+        </div>
       )}
     </div>
   );
