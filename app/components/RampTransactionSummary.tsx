@@ -239,8 +239,7 @@ export const RampTransactionSummary = () => {
         purchaseCurrency: selectedPurchaseCurrency?.symbol,
       } as TxSuccessSummaryPayload);
     }
-    console.log('transactionLink', transactionLink);
-    // window.location.href = transactionLink;
+    window.location.href = transactionLink;
   }, [transactionLink]);
 
   const getTransactionSummaryLabel = () => {

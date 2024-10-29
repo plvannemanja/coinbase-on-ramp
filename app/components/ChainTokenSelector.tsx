@@ -1,5 +1,5 @@
 import { Autocomplete, AutocompleteItem, Skeleton } from '@nextui-org/react';
-import { Key, useEffect, useState } from 'react';
+import { Key, useEffect } from 'react';
 import { useCoinbaseRampTransaction } from '../contexts/CoinbaseRampTransactionContext';
 import { generateBuyOptions, generateSellOptions } from '../queries';
 
@@ -36,9 +36,6 @@ export const ChainTokenSelector = () => {
     loadingBuyOptions,
     isOnrampActive,
   } = useCoinbaseRampTransaction();
-
-  const [tokenInputValue, setTokenInputValue] = useState('');
-  const [userFocusOnTokenInput, setUserFocusOnTokenInput] = useState(false);
 
   useEffect(() => {
     const getBuyOptions = async () => {
@@ -155,7 +152,6 @@ export const ChainTokenSelector = () => {
       : selectedSellCurrency?.id;
   };
 
-  console.log({ tokenInputValue, userFocusOnTokenInput });
   return (
     <div className="flex flex-col gap-4">
       {loadingBuyOptions ? (
@@ -172,12 +168,7 @@ export const ChainTokenSelector = () => {
             placeholder="Search for a token"
             className="max-w-[200px]"
             onSelectionChange={handleTokenSelectionChange}
-            selectedKey={
-              userFocusOnTokenInput ? tokenInputValue : getSelectedCurrency()
-            }
-            onInputChange={setTokenInputValue}
-            onFocus={() => setUserFocusOnTokenInput(true)}
-            onFocusChange={() => setUserFocusOnTokenInput(false)}
+            selectedKey={getSelectedCurrency()}
           >
             {(
               (isOnrampActive
