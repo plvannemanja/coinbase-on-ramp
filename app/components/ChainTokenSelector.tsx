@@ -117,12 +117,6 @@ export const ChainTokenSelector = () => {
           );
         }
       }
-    } else {
-      setSelectedPurchaseCurrency(null);
-      setSelectedPurchaseCurrencyNetwork(null);
-
-      setSelectedSellCurrency(null);
-      setSelectedSellCurrencyNetwork(null);
     }
   };
 

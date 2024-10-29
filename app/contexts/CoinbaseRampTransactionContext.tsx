@@ -20,7 +20,12 @@ import {
   SellOptionsResponse,
   SellQuoteResponse,
 } from '../types';
-import { BuyConfig, Country, CountrySubdivision } from '../types/BuyConfig';
+import {
+  BuyConfig,
+  Country,
+  CountrySubdivision,
+  PaymentMethod,
+} from '../types/BuyConfig';
 import { RampTransaction } from '../types/RampTransaction';
 
 isocountries.registerLocale(enLocale);
@@ -53,10 +58,8 @@ interface CoinbaseRampTransactionContextType {
   setBuyOptions: (buyOptions: BuyOptionsResponse | null) => void;
   sellOptions: SellOptionsResponse | null;
   setSellOptions: (buyOptions: SellOptionsResponse | null) => void;
-  selectedPaymentMethod: PaymentCurrencyLimit | null;
-  setSelectedPaymentMethod: (
-    paymentMethod: PaymentCurrencyLimit | null
-  ) => void;
+  selectedPaymentMethod: PaymentMethod | null;
+  setSelectedPaymentMethod: (paymentMethod: PaymentMethod | null) => void;
   secureToken: string | null;
   setSecureToken: (secureToken: string | null) => void;
   buyQuote: BuyQuoteResponse | null;
@@ -79,6 +82,7 @@ interface CoinbaseRampTransactionContextType {
   setLoadingSellOptions: (loadingSellOptions: boolean) => void;
   isOnrampActive: boolean;
   isOfframpActive: boolean;
+  selectedPaymentMethodLimit: PaymentCurrencyLimit | undefined;
 }
 
 const CoinbaseRampTransactionContext = createContext<
@@ -112,7 +116,7 @@ export const CoinbaseRampTransactionProvider = ({
   );
   const [mode, setMode] = useState<Mode>('onramp');
   const [selectedPaymentMethod, setSelectedPaymentMethod] =
-    useState<PaymentCurrencyLimit | null>(null);
+    useState<PaymentMethod | null>(null);
   const [secureToken, setSecureToken] = useState<string | null>(null);
   const [buyQuote, setBuyQuote] = useState<BuyQuoteResponse | null>(null);
   const [sellQuote, setSellQuote] = useState<SellQuoteResponse | null>(null);
@@ -287,6 +291,12 @@ export const CoinbaseRampTransactionProvider = ({
     rampTransaction,
   ]);
 
+  const selectedPaymentMethodLimit = useMemo(() => {
+    return selectedCurrency?.limits.find(
+      (limit) => limit.id === selectedPaymentMethod?.id
+    );
+  }, [selectedCurrency, selectedPaymentMethod]);
+
   const contextValue: CoinbaseRampTransactionContextType = {
     mode,
     setMode,
@@ -335,6 +345,7 @@ export const CoinbaseRampTransactionProvider = ({
     setSellQuote,
     isOnrampActive,
     isOfframpActive,
+    selectedPaymentMethodLimit,
   };
   return (
     <CoinbaseRampTransactionContext.Provider value={contextValue}>

@@ -46,6 +46,7 @@ export const RampTransactionSummary = () => {
     loadingSellOptions,
     isOnrampActive,
     isOfframpActive,
+    selectedPaymentMethodLimit,
   } = useCoinbaseRampTransaction();
   const [fetchingQuote, setFetchingQuote] = useState(false);
   const [showExpandedFees, setShowExpandedFees] = useState(false);
@@ -71,7 +72,9 @@ export const RampTransactionSummary = () => {
 
   const isAmountTooLow = useMemo(() => {
     if (rampTransaction?.amount && selectedPaymentMethod) {
-      return Number(rampTransaction.amount) < Number(selectedPaymentMethod.min);
+      return (
+        Number(rampTransaction.amount) < Number(selectedPaymentMethodLimit?.min)
+      );
     }
 
     return true;
@@ -163,21 +166,19 @@ export const RampTransactionSummary = () => {
       }
     };
 
-    if (authenticated) {
-      setFetchingQuote(true);
-      if (isOnrampActive) {
-        fetchBuyQuote().then(() => setFetchingQuote(false));
-      } else {
-        fetchSellQuote().then(() => setFetchingQuote(false));
-      }
-
-      const intervalId = setInterval(
-        isOnrampActive ? fetchBuyQuote : fetchSellQuote,
-        10000
-      );
-
-      return () => clearInterval(intervalId);
+    setFetchingQuote(true);
+    if (isOnrampActive) {
+      fetchBuyQuote().then(() => setFetchingQuote(false));
+    } else {
+      fetchSellQuote().then(() => setFetchingQuote(false));
     }
+
+    const intervalId = setInterval(
+      isOnrampActive ? fetchBuyQuote : fetchSellQuote,
+      10000
+    );
+
+    return () => clearInterval(intervalId);
   }, [
     rampTransaction,
     selectedPurchaseCurrencyNetwork,
@@ -198,7 +199,7 @@ export const RampTransactionSummary = () => {
         : sellQuote?.quote_id) || '';
     return encodeURI(
       `https://pay.coinbase.com/${isOnrampActive ? 'buy' : 'sell'}/one-click?sessionToken=${secureToken}` +
-        `&redirectUrl=${window.location.origin}?success=true` +
+        `&redirectUrl=${encodeURIComponent(window.location.origin + '?success=true')}` +
         (selectedPurchaseCurrencyNetwork?.name
           ? `&defaultNetwork=${selectedPurchaseCurrencyNetwork.name}`
           : '') +
@@ -238,7 +239,6 @@ export const RampTransactionSummary = () => {
         purchaseCurrency: selectedPurchaseCurrency?.symbol,
       } as TxSuccessSummaryPayload);
     }
-
     window.location.href = transactionLink;
   }, [transactionLink]);
 
