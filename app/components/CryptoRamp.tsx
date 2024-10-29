@@ -94,7 +94,8 @@ export const CryptoRamp = ({ partnerUserId }: ICryptoRampProps) => {
               selectedKey={mode.toLowerCase()}
             >
               <Tab key="onramp" title="Buy"></Tab>
-              <Tab key="offramp" title="Sell"></Tab>
+              {/* TODO: Add offramp and enableSell Tab */}
+              {/* <Tab key="offramp" title="Sell"></Tab> */}
             </Tabs>
             <div className="hidden sm:block">
               <RegionSelector />

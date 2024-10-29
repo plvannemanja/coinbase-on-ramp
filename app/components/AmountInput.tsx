@@ -10,38 +10,47 @@ export const AmountInput = () => {
     selectedPaymentMethod,
     loadingBuyOptions,
     selectedCurrency,
+    selectedPaymentMethodLimit,
   } = useCoinbaseRampTransaction();
 
   const inputError = useMemo(() => {
     if (rampTransaction?.amount && selectedPaymentMethod) {
-      return Number(rampTransaction.amount) < Number(selectedPaymentMethod.min);
+      return (
+        Number(rampTransaction.amount) < Number(selectedPaymentMethodLimit?.min)
+      );
     }
 
     return false;
-  }, [rampTransaction?.amount, selectedPaymentMethod]);
+  }, [
+    rampTransaction?.amount,
+    selectedPaymentMethod,
+    selectedPaymentMethodLimit,
+  ]);
 
   const handleAmountChange = useCallback(
     (value: string) => {
-      let formattedValue = value.includes('.')
-        ? value.substring(0, value.indexOf('.'))
-        : value;
-      formattedValue = formattedValue.startsWith('0')
-        ? formattedValue.substring(1)
-        : formattedValue;
+      if (!isNaN(Number(value))) {
+        let formattedValue = value.includes('.')
+          ? value.substring(0, value.indexOf('.'))
+          : value;
+        formattedValue = formattedValue.startsWith('0')
+          ? formattedValue.substring(1)
+          : formattedValue;
 
-      if (Number(formattedValue) > Number(selectedPaymentMethod?.max)) {
-        setRampTransaction({
-          ...rampTransaction,
-          amount: selectedPaymentMethod?.max,
-        });
-      } else {
-        setRampTransaction({
-          ...rampTransaction,
-          amount: formattedValue,
-        });
+        if (Number(formattedValue) > Number(selectedPaymentMethodLimit?.max)) {
+          setRampTransaction({
+            ...rampTransaction,
+            amount: selectedPaymentMethodLimit?.max,
+          });
+        } else {
+          setRampTransaction({
+            ...rampTransaction,
+            amount: formattedValue,
+          });
+        }
       }
     },
-    [rampTransaction, setRampTransaction, selectedPaymentMethod]
+    [rampTransaction, setRampTransaction, selectedPaymentMethodLimit]
   );
 
   return (
@@ -81,14 +90,14 @@ export const AmountInput = () => {
                 <span>
                   Min:{' '}
                   {formatCurrency(
-                    selectedPaymentMethod?.min || '0',
+                    selectedPaymentMethodLimit?.min || '0',
                     getCurrencySymbol(selectedCurrency?.id)
                   )}
                 </span>
                 <span>
                   Max:{' '}
                   {formatCurrency(
-                    selectedPaymentMethod?.max || '0',
+                    selectedPaymentMethodLimit?.max || '0',
                     getCurrencySymbol(selectedCurrency?.id)
                   )}
                 </span>

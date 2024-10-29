@@ -1,5 +1,5 @@
 import { Autocomplete, AutocompleteItem, Skeleton } from '@nextui-org/react';
-import { Key } from 'react';
+import { Key, useState } from 'react';
 import { useCoinbaseRampTransaction } from '../contexts/CoinbaseRampTransactionContext';
 
 export const CurrencySelector = () => {
@@ -12,9 +12,14 @@ export const CurrencySelector = () => {
     rampTransaction,
     setSelectedPaymentMethod,
     selectedCurrency,
+    selectedCountry,
     setSelectedCurrency,
     loadingBuyOptions,
   } = useCoinbaseRampTransaction();
+
+  const [currencyInputValue, setCurrencyInputValue] = useState('');
+  const [userFocusOnCurrencyInput, setUserFocusOnCurrencyInput] =
+    useState(false);
 
   const handleCurrencySelection = (value: Key | null) => {
     if (value) {
@@ -43,7 +48,9 @@ export const CurrencySelector = () => {
   };
 
   const handlePaymentMethodSelection = (key: Key | null) => {
-    const method = selectedCurrency?.limits.find((method) => method.id === key);
+    const method = selectedCountry?.payment_methods.find(
+      (method) => method.id === key
+    );
 
     if (method) {
       setSelectedPaymentMethod(method);
@@ -73,7 +80,14 @@ export const CurrencySelector = () => {
               placeholder="Search for a currency"
               className="w-[200px] my-auto"
               onSelectionChange={handleCurrencySelection}
-              selectedKey={rampTransaction?.currency}
+              selectedKey={
+                userFocusOnCurrencyInput
+                  ? currencyInputValue
+                  : rampTransaction?.currency
+              }
+              onInputChange={setCurrencyInputValue}
+              onFocus={() => setUserFocusOnCurrencyInput(true)}
+              onFocusChange={() => setUserFocusOnCurrencyInput(false)}
             >
               {getCurrencies().map((currency) => (
                 <AutocompleteItem key={currency.id} value={currency.id}>
@@ -81,7 +95,6 @@ export const CurrencySelector = () => {
                 </AutocompleteItem>
               ))}
             </Autocomplete>
-
             {selectedCurrency && (
               <Autocomplete
                 isClearable={false}
@@ -91,14 +104,16 @@ export const CurrencySelector = () => {
                 onSelectionChange={handlePaymentMethodSelection}
                 selectedKey={rampTransaction?.paymentMethod}
               >
-                {(selectedCurrency?.limits || []).map((paymentMethod) => (
-                  <AutocompleteItem
-                    key={paymentMethod.id}
-                    value={paymentMethod.id}
-                  >
-                    {paymentMethod.id}
-                  </AutocompleteItem>
-                ))}
+                {(selectedCountry?.payment_methods || []).map(
+                  (paymentMethod) => (
+                    <AutocompleteItem
+                      key={paymentMethod.id}
+                      value={paymentMethod.id}
+                    >
+                      {paymentMethod.id}
+                    </AutocompleteItem>
+                  )
+                )}
               </Autocomplete>
             )}
           </>
