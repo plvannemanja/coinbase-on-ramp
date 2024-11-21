@@ -23,7 +23,7 @@ import { OrderHistory } from './OrderHistory';
 import { RampTransactionSummary } from './RampTransactionSummary';
 import { RegionSelector } from './RegionSelector';
 import { WalletConnector } from './WalletConnector';
-import config from "./config.json"
+import { generateBuyConfig } from '../queries';
 interface ICryptoRampProps {
   partnerUserId?: string;
 }
@@ -62,7 +62,7 @@ export const CryptoRamp = ({ partnerUserId }: ICryptoRampProps) => {
     const getBuyconfig = async () => {
       try {
         setLoadingBuyConfig(true);
-        // const config = await generateBuyConfig();
+        const config = await generateBuyConfig();
         setBuyConfig(config);
         setLoadingBuyConfig(false);
       } catch (error) {
