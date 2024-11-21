@@ -12,7 +12,6 @@ export function OnchainProvider({ children }: Props) {
     <OnchainKitProvider
       apiKey={process.env.NEXT_PUBLIC_ONCHAINKIT_API_KEY}
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
       chain={base}
     >
       {children}

@@ -1,5 +1,4 @@
 import { SignOptions, sign } from 'jsonwebtoken';
-import crypto from 'crypto';
 import { NextApiResponse } from 'next';
 
 export type createRequestParams = {
@@ -36,10 +35,9 @@ export async function createRequest({
   const signOptions: SignOptions = {
     algorithm: 'ES256',
     header: {
+      alg: 'ES256',
       kid: key_name,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      nonce: crypto.randomBytes(16).toString('hex'), // non-standard, coinbase-specific header that is necessary
+      // nonce: crypto.randomBytes(16).toString('hex'), // non-standard, coinbase-specific header that is necessary
     },
   };
 
