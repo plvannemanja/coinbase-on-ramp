@@ -13,7 +13,7 @@ if (!CDP_API_KEY_NAME && !CDP_API_KEY_PRIVATE_KEY) {
 }
 
 const key_name = CDP_API_KEY_NAME!;
-const key_secret = CDP_API_KEY_PRIVATE_KEY?.replace(/\\n/g, '\n')!;
+const key_secret = CDP_API_KEY_PRIVATE_KEY?.replace(/\\n/g, '\n') ?? "";
 
 export async function createRequest({
   request_method,
