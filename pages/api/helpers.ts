@@ -41,8 +41,8 @@ export async function createRequest({
     },
   };
 
-  const jwt = sign(payload, key_secret, signOptions);
-
+  const jwt = await sign(payload, key_secret, signOptions);
+  console.log(jwt)
   return { url, jwt };
 }
 
