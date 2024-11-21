@@ -15,7 +15,7 @@ import {
   Mode,
   useCoinbaseRampTransaction,
 } from '../contexts/CoinbaseRampTransactionContext';
-import { generateBuyConfig } from '../queries';
+// import { generateBuyConfig } from '../queries';
 import { AmountInput } from './AmountInput';
 import { ChainTokenSelector } from './ChainTokenSelector';
 import { CurrencySelector } from './CurrencySelector';
