@@ -1,0 +1,516 @@
+{
+  "countries": [
+    {
+      "id": "AD",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "AT",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "AU",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "BE",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "BG",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "BR",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "CA",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "CH",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "CY",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "CZ",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "DE",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "DK",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "EE",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "ES",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "FI",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "FR",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "GB",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "GG",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "GI",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "GR",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "HR",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "HU",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "IE",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "IM",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "IS",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "IT",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "JE",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "LI",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "LT",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "LU",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "LV",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "MC",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "MT",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "NL",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "NO",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "NZ",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "PL",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "PT",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "RO",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "SE",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "SG",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "SI",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "SK",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "SM",
+      "subdivisions": [],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        }
+      ],
+      "disable_3ds_cards": false
+    },
+    {
+      "id": "US",
+      "subdivisions": [
+        "AK",
+        "AL",
+        "AZ",
+        "AR",
+        "CA",
+        "CO",
+        "CT",
+        "DC",
+        "DE",
+        "GA",
+        "FL",
+        "IA",
+        "ID",
+        "IL",
+        "IN",
+        "KS",
+        "KY",
+        "LA",
+        "MA",
+        "MD",
+        "ME",
+        "MI",
+        "MN",
+        "MO",
+        "MS",
+        "MT",
+        "NC",
+        "ND",
+        "NE",
+        "NH",
+        "NJ",
+        "NM",
+        "NY",
+        "NV",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "PR",
+        "RI",
+        "SC",
+        "SD",
+        "TN",
+        "TX",
+        "UT",
+        "VT",
+        "VA",
+        "WA",
+        "WI",
+        "WV",
+        "WY",
+        "AS",
+        "GU",
+        "MP",
+        "PR",
+        "VI",
+        "UM",
+        "HI"
+      ],
+      "payment_methods": [
+        {
+          "id": "CARD"
+        },
+        {
+          "id": "ACH_BANK_ACCOUNT"
+        }
+      ],
+      "disable_3ds_cards": false
+    }
+  ]
+}
